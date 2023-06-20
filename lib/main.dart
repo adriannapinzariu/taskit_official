@@ -3,11 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 void main() async{
-/*WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );*/
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -43,34 +40,48 @@ class MyHomePageState extends State<MyHomePage> {
   String priority = 'Low';
   bool _isLoading = false;
 
-  final taskCollection = FirebaseFirestore.instance.collection('tasks');
+  
 
-Future<void> createTask(
-    {required String title, 
-     required String description, 
-     required String category, 
-     required String priority}) {
-  return taskCollection
-      .add({
-        'title': title, // The task's title
-        'description': description, // The task's description
-        'category': category, // The task's category
-        'priority': priority, // The task's priority
-        'createdAt': Timestamp.fromDate(DateTime.now()), // The task's creation date
-      })
-      .then((value) => print('Task Added'))
-      .catchError((error) => print('Failed to add task: $error'));
-}
+  Future addTask() async {
+    print('addTask started');
+    try {
+         await FirebaseFirestore.instance
+            .collection('tasks')
+            .add({
+          'title': title,
+          'description': description,
+          'category': category,
+          'priority': priority,
+          'createdAt': DateTime.now(),
+        });
+        print("Task Added");
+      
+    } catch (error, stackTrace) {
+      print("Failed to add task: $error");
+      print(stackTrace);
+    }
+  }
 
-  // function to simulate saving to Firestore
+  // function to save data to Firestore
   Future<void> _saveToFirestore() async {
-    setState(() {
-      _isLoading = true;
-    });
-    await Future.delayed(const Duration(seconds: 2)); // simulate delay
-    setState(() {
-      _isLoading = false;
-    });
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      await addTask();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Submitted!'),
+        ),
+      );
+    } catch (error) {
+      print("Failed to save to Firestore: $error");
+    } finally {
+      // stop the loading indicator whether the save was successful or not
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
