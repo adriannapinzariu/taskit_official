@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async{
-  /*WidgetsFlutterBinding.ensureInitialized();
+/*WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );*/
@@ -41,6 +42,25 @@ class MyHomePageState extends State<MyHomePage> {
   String category = '';
   String priority = 'Low';
   bool _isLoading = false;
+
+  final taskCollection = FirebaseFirestore.instance.collection('tasks');
+
+Future<void> createTask(
+    {required String title, 
+     required String description, 
+     required String category, 
+     required String priority}) {
+  return taskCollection
+      .add({
+        'title': title, // The task's title
+        'description': description, // The task's description
+        'category': category, // The task's category
+        'priority': priority, // The task's priority
+        'createdAt': Timestamp.fromDate(DateTime.now()), // The task's creation date
+      })
+      .then((value) => print('Task Added'))
+      .catchError((error) => print('Failed to add task: $error'));
+}
 
   // function to simulate saving to Firestore
   Future<void> _saveToFirestore() async {
