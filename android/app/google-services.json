@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "939792290969",
+    "project_id": "fun-98543",
+    "storage_bucket": "fun-98543.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939792290969:android:8ffb6343d8898a92ec1408",
+        "android_client_info": {
+          "package_name": "com.example.taskit_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939792290969-lggo47jf8h3a7gtcgkugtdcl3ti7cb44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdJSHIjLffPA48Kr06GWKgYAyJbnYSUE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939792290969-lggo47jf8h3a7gtcgkugtdcl3ti7cb44.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "939792290969-87icq9669dd79rc1jmp4i568rhlq001k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskitNew"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
